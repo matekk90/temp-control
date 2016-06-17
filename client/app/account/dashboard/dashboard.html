@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Sensors:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="sensor in vm.sensors">
+        <button type="button" ng-click="vm.selectSensor(sensor._id)">{{sensor.name + ' ' + sensor._id}}</button>
+        <p>Current temperature: {{sensor.measures[sensor.measures.length-1].value + ' '}}</p>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-show="vm.selectedSensorIndex > -1" ng-repeat="measure in vm.sensors[vm.selectedSensorIndex].measures">
+    <span>{{measure.value }} </span>
+  </div>
+
+</div>
