@@ -2,19 +2,31 @@
 
 
 class DashboardController {
-    constructor($http, $log, $scope, $timeout, socket) {
+    constructor($filter, $http, $log, $scope, $timeout, socket) {
+        this.$filter = $filter;
         this.$http = $http;
+        this.limit = 100;
         this.$log = $log;
         this.$timeout = $timeout;
         this.socket = socket;
         this.sensors = [];
         this.showChart = true;
+        this.showId = false;
         this.onInit();
 
         $scope.$on('$destroy', function () {
             socket.unsyncUpdates('sensor');
         });
+
+        $scope.$watch(angular.bind(this, function() {
+            return this.limit;
+        }), angular.bind(this, function(newValue, oldValue) {
+            this.$log.debug('Limit changed to', newValue);
+            this.sensors.data = this.prepareData(this.sensors);
+        }));
+
     }
+
 
     onInit() {
         this.$log.debug('Initializing DashboardController');

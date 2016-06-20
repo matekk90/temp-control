@@ -1,6 +1,7 @@
 <div class="container">
 
     <h1 class="page-header">Temp control</h1>
+    <label for="show-id">Show id:</label><input id="show-id" ng-model="vm.showId" type="checkbox"/>
     <label for="show-chart">Show temperature chart:</label><input id="show-chart" ng-model="vm.showChart"
                                                                   type="checkbox"/>
     <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="sensor in vm.sensors">
@@ -10,6 +11,7 @@
     </ul>
 
     <div ng-show="vm.showChart">
+        <label for="limit">Limit measures to last: </label><input id="limit" ng-model="vm.limit" type="text"/>
         <nvd3 options="vm.options" config="vm.config" data="vm.sensors.data"
               class="with-3d-shadow with-transitions"></nvd3>
     </div>
