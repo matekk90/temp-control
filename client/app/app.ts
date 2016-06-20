@@ -9,7 +9,7 @@ angular.module('tempControlApp', [
     'btford.socket-io',
     'ui.router',
     'validation.match',
-    'chart.js'
+    'nvd3'
 ])
     .config(function ($urlRouterProvider, $locationProvider) {
         $urlRouterProvider

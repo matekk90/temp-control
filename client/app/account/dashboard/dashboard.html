@@ -1,16 +1,17 @@
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Sensors:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="sensor in vm.sensors">
-        <button type="button" ng-click="vm.selectSensor(sensor._id)">{{sensor.name + ' ' + sensor._id}}</button>
-        <p>Current temperature: {{sensor.measures[sensor.measures.length-1].value + ' '}}</p>
-      </ul>
-    </div>
-  </div>
 
-  <div ng-show="vm.selectedSensorIndex > -1" ng-repeat="measure in vm.sensors[vm.selectedSensorIndex].measures">
-    <span>{{measure.value }} </span>
-  </div>
+    <h1 class="page-header">Temp control</h1>
+    <label for="show-chart">Show temperature chart:</label><input id="show-chart" ng-model="vm.showChart"
+                                                                  type="checkbox"/>
+    <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="sensor in vm.sensors">
+        <span>{{sensor.name}}</span><span ng-show="vm.showId">{{ ' (' + sensor._id + ')' }}</span>
+        <span>: {{sensor.measures[sensor.measures.length-1].value + ' °C'}}</span>
+        <span>({{sensor.measures[sensor.measures.length-1].date | date : 'HH:mm:ss, dd-MM-yyyy'}})</span>
+    </ul>
+
+    <div ng-show="vm.showChart">
+        <nvd3 options="vm.options" config="vm.config" data="vm.sensors.data"
+              class="with-3d-shadow with-transitions"></nvd3>
+    </div>
 
 </div>

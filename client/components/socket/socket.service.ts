@@ -25,7 +25,7 @@ angular.module('tempControlApp')
        * @param {Array} array
        * @param {Function} cb
        */
-      syncUpdates(modelName, array, cb) {
+      syncUpdates(modelName, array, cb, param) {
         cb = cb || angular.noop;
 
         /**
@@ -45,7 +45,7 @@ angular.module('tempControlApp')
             array.push(item);
           }
 
-          cb(event, item, array);
+          cb(event, item, array, param);
         });
 
         /**
@@ -54,7 +54,7 @@ angular.module('tempControlApp')
         socket.on(modelName + ':remove', function (item) {
           var event = 'deleted';
           _.remove(array, {_id: item._id});
-          cb(event, item, array);
+          cb(event, item, array, param);
         });
       },
 
